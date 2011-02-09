@@ -1,0 +1,10 @@
+* README
+* MIT license
+* Get Rails scaffold going
+* Push to Heroku
+* Auth w/Twitter
+* Show tweets from your timeline
+* Store time of visit/time of last tweet seen per user model
+* On next visit, show tweets since last visit
+* Conversation identification/collapsing
+* Summarize conversation
