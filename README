@@ -1,0 +1,36 @@
+Twitter Digest
+==============
+
+Twitter Digest is a Twitter viewer that is optimized for occasional checking of Twitter. Its aim is to feature the most interesting things that have been said since the last time you checked twitter and collapse tweets that aren't interesting. Remaining transparent about what is deemed interesting or not and why is a goal of this project.
+
+Features
+========
+
+- None implemented yet. I'm just getting started!
+
+Future features
+===============
+
+- Store the last time that a user checked twitter. When they check again:
+
+    - Summarize any conversations between 2 or more people. Instead of displaying those tweets, instead display, for example, "@tundal45, @volundr, and @locks talked about #RbMU".
+    - Summarize any discussions about a link. Go fetch the actual URL from any short urls, and if multiple tweets talk about the same link, summarize the comments about them.
+    - If multiple people tweet with the exact same text (that aren't RTs), just show "@a, @b and @c tweeted: Someday I'm going to copy someone's tweet word for word and see if they notice."
+    - For someone you follow who tweets a lot, have a configurable maximum number of tweets you want to see in a batch of tweets and show the most interesting tweets they've made since the last time you checked.
+    - Group tweets by topic
+    - Suggest people you should think about unfollowing
+
+Usage
+=======
+
+You can go to (URL) and authenticate with your twitter account. You can also download the application's code and run it as your own Rails app.
+
+Info
+=======
+
+This is Carol Nichols' individual project for <a href="http://university.rubymendicant.com">Ruby Mendicant University</a>, February session of the core skills course.
+
+Released under the MIT License.
+
+Twitter Digest is not affiliated with Twitter, Inc.
+
