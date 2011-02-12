@@ -2,6 +2,7 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.0.3'
 gem 'sqlite3-ruby', '1.3.0', :require => 'sqlite3'
+gem 'omniauth'
 
 group :development, :test do
   gem 'capybara', "~> 0.4.1"

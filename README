@@ -23,7 +23,13 @@ Future features
 Usage
 =======
 
-You can go to (URL) and authenticate with your twitter account. You can also download the application's code and run it as your own Rails app.
+You can go to (URL) and authenticate with your twitter account.
+
+You can also download the application's code and run it as your own Rails app. You will need to set the following environment variables:
+
+- ENV['TWOAUTH_CALLBACK'] to your callback URL
+- ENV['TWOAUTH_KEY'] to your Twitter OAuth consumer key (obtained by registering an app at dev.twitter.com)
+- ENV['TWOAUTH_SECRET'] to your Twitter OAuth consumer secret (obtained by registering an app at dev.twitter.com)
 
 Info
 =======

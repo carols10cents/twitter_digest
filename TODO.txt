@@ -1,6 +1,6 @@
 X * README
 X * MIT license
-* Auth w/Twitter
+X * Auth w/Twitter
 * Get Rails scaffold going
 * Push to Heroku
 * Show tweets from your timeline
