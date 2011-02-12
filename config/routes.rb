@@ -1,4 +1,6 @@
 TwitterDigest::Application.routes.draw do
+  get "digest/index"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
