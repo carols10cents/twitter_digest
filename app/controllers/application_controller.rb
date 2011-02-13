@@ -11,11 +11,8 @@ class ApplicationController < ActionController::Base
   private
   def current_user
     begin
-      logger.error "@current_user? [#{@current_user}]"
-      logger.error "session[:user_id]? [#{session[:user_id]}]"
       @current_user ||= User.find(session[:user_id]) if session[:user_id]
     rescue ActiveRecord::RecordNotFound
-      logger.error "Record not found for #{session[:user_id]}"
       session[:user_id] = nil
       @current_user = nil
       access_denied
@@ -46,8 +43,6 @@ class ApplicationController < ActionController::Base
   end
 
   def client
-    logger.error "@client? [#{@client}]"
-    logger.error "current_user? [#{current_user}]"
     Twitter.configure do |config|
       config.consumer_key = ENV['TWOAUTH_KEY']
       config.consumer_secret = ENV['TWOAUTH_SECRET']

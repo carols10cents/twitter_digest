@@ -1,5 +1,11 @@
+<div>prev last_tweet_seen = <%= @last_tweet_seen %></div>
+<div>new last_tweet_seen = <%= current_user.last_tweet_seen %></div>
 <ul class='tweets'>
-  <% @tweets.each do |tweet| %>
-    <li><%= tweet[:from_user] + ": " + tweet[:text] + " (at " + tweet[:created_at].to_s %></li>
+  <% if !@tweets.empty? %>
+    <% @tweets.each do |tweet| %>
+      <li><%= tweet[:user][:screen_name] %>: <%= tweet[:text] %></li>
+    <% end %>
+  <% else %>
+    <li>No tweets since last time you checked.</li>
   <% end %>
 </ul>

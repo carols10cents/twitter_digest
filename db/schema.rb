@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110213170853) do
+ActiveRecord::Schema.define(:version => 20110213191616) do
 
   create_table "users", :force => true do |t|
     t.string   "provider"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(:version => 20110213170853) do
     t.string   "nickname"
     t.string   "token"
     t.string   "secret"
+    t.string   "last_tweet_seen"
   end
 
 end
