@@ -1,0 +1,10 @@
+#container {
+  width: 600px;
+  margin: 0 auto;
+  border: 1px solid #999;
+  border-top: none;
+  border-bottom: none;
+}
+#user_nav {
+  float: right;
+}
