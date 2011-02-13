@@ -49,8 +49,8 @@ class ApplicationController < ActionController::Base
     logger.error "@client? [#{@client}]"
     logger.error "current_user? [#{current_user}]"
     Twitter.configure do |config|
-      config.consumer_key = ENV['CONSUMER_KEY']
-      config.consumer_secret = ENV['CONSUMER_SECRET']
+      config.consumer_key = ENV['TWOAUTH_KEY']
+      config.consumer_secret = ENV['TWOAUTH_SECRET']
       config.oauth_token = current_user.token
       config.oauth_token_secret = current_user.secret
     end
