@@ -3,8 +3,9 @@ X * MIT license
 X * Auth w/Twitter
 X * Get Rails scaffold going
 X * Push to Heroku
-* Show tweets from your timeline
+X * Show tweets from your timeline
 * Store time of visit/time of last tweet seen per user model
 * On next visit, show tweets since last visit
 * Conversation identification/collapsing
 * Summarize conversation
+* Get a better heroku name or domain name

@@ -1,3 +1,5 @@
 <ul class='tweets'>
-  <li>hi</li>
+  <% @tweets.each do |tweet| %>
+    <li><%= tweet[:from_user] + ": " + tweet[:text] + " (at " + tweet[:created_at].to_s %></li>
+  <% end %>
 </ul>
