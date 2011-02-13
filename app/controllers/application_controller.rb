@@ -24,7 +24,6 @@ class ApplicationController < ActionController::Base
   end
 
   def login_required
-    logger.error "login_required"
     authorized? || access_denied
   end
 
