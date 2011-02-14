@@ -1,15 +1,20 @@
 require 'spec_helper'
 
-# Specs in this file have access to a helper object that includes
-# the DigestHelper. For example:
-#
-# describe DigestHelper do
-#   describe "string concat" do
-#     it "concats two strings with spaces" do
-#       helper.concat_strings("this","that").should == "this that"
-#     end
-#   end
-# end
 describe DigestHelper do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "digest_tweets" do
+    before(:each) do
+      @tweet1 = double("tweet", :id => 1, :in_reply_to_status_id_str => nil)
+      @tweet2 = double("tweet", :id => 2, :in_reply_to_status_id_str => nil)
+      @tweet3 = double("tweet", :id => 3, :in_reply_to_status_id_str => 2)
+    end
+    
+    it "should not modify tweets that aren't in conversations" do
+      helper.digest_tweets([@tweet2, @tweet1]).should eql([@tweet2, @tweet1])
+    end
+    
+    it "should group a tweet with what it was in reply to" do
+      helper.digest_tweets([@tweet3, @tweet2, @tweet1]).should 
+        eql([[@tweet3, @tweet2], @tweet1])
+    end
+  end
 end
