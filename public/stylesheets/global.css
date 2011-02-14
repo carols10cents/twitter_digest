@@ -8,3 +8,15 @@
 #user_nav {
   float: right;
 }
+.logout {
+  text-align: right;
+}
+h1.logo {
+  background: url(../images/twitter_digest_logo.png) no-repeat 0 0;
+  text-indent: -9999px;
+  width: 401px;
+  height: 147px;
+}
+.tweets li {
+  margin: 10px;
+}

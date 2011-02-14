@@ -13,11 +13,12 @@
         <div>
           Signed in: <%= current_user.nickname %>
         </div>
-        <div>
+        <div class="logout">
           <%= link_to "Sign out", signout_path %>
         </div>
       <% end %>
     </div>
+    <h1 class="logo">twitter digest</h1>
     <%= yield %>
   </div>
 </body>
