@@ -20,3 +20,7 @@ h1.logo {
 .tweets li {
   margin: 10px;
 }
+.tweets .conversation {
+  background-color: #D9FFA9;
+  padding: 10px;
+}

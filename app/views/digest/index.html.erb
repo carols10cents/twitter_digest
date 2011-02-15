@@ -1,7 +1,16 @@
+<div class="stats">
+  Viewing <%= @num_total_tweets %> tweets since you last checked; <%= @num_in_conversations %> are in conversations.
+</div>
 <ul class='tweets'>
   <% if !@tweets.empty? %>
-    <% @tweets.each do |tweet| %>
-      <li><%= tweet[:user][:screen_name] %>: <%= tweet[:text] %></li>
+    <% @tweets.each do |tweet_or_conversation| %>
+      <% if tweet_or_conversation[:conversation] %>
+        <%= render :partial => "conversation", 
+                   :locals => {:conversation => tweet_or_conversation[:conversation]} %>
+      <% else %>
+        <%= render :partial => "tweet", 
+                   :locals => {:tweet => tweet_or_conversation} %>
+      <% end %>
     <% end %>
   <% else %>
     <li>No tweets since last time you checked.</li>

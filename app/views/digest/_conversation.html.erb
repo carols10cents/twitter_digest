@@ -1,0 +1,9 @@
+<li class="conversation">
+  <h2>Conversation</h2>
+  <ul>
+    <% conversation.each do |tweet| %>
+      <%= render :partial => "tweet",
+                 :locals  => {:tweet => tweet} %>
+    <% end %>
+  </ul>
+</li>
