@@ -1,12 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   helper_method :current_user
-  helper_method :login_required
-  helper_method :authorized?
-  helper_method :access_denied
-  helper_method :store_location
-  helper_method :redirect_back_or_default
-  helper_method :client
 
   private
   def current_user
