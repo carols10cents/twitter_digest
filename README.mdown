@@ -6,14 +6,14 @@ Twitter Digest is a Twitter viewer that is optimized for occasional checking of 
 Features
 ========
 
-- None implemented yet. I'm just getting started!
+- When you check your twitter stream through Twitter Digest, only the ID of the last tweet you've seen is stored.
+- When you check Twitter Digest again, it will show tweets since the last time you visited.
+- If two or more users that you follow have had a conversation, those tweets will be displayed together in chronological order.
 
 Future features
 ===============
 
-- Store the last time that a user checked twitter. When they check again:
-
-    - Summarize any conversations between 2 or more people. Instead of displaying those tweets, instead display, for example, "@tundal45, @volundr, and @locks talked about #RbMU".
+    - Collapse by default and summarize any conversations between 2 or more people. Instead of displaying those tweets, instead display, for example, "@tundal45, @volundr, and @locks talked about #RbMU".
     - Summarize any discussions about a link. Go fetch the actual URL from any short urls, and if multiple tweets talk about the same link, summarize the comments about them.
     - If multiple people tweet with the exact same text (that aren't RTs), just show "@a, @b and @c tweeted: Someday I'm going to copy someone's tweet word for word and see if they notice."
     - For someone you follow who tweets a lot, have a configurable maximum number of tweets you want to see in a batch of tweets and show the most interesting tweets they've made since the last time you checked.
