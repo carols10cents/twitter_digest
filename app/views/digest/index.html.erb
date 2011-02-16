@@ -2,15 +2,9 @@
   Viewing <%= @num_total_tweets %> tweets since you last checked; <%= @num_in_conversations %> are in conversations.
 </div>
 <ul class='tweets'>
-  <% if !@tweets.empty? %>
-    <% @tweets.each do |tweet_or_conversation| %>
-      <% if tweet_or_conversation[:conversation] %>
-        <%= render :partial => "conversation", 
-                   :locals => {:conversation => tweet_or_conversation[:conversation]} %>
-      <% else %>
-        <%= render :partial => "tweet", 
-                   :locals => {:tweet => tweet_or_conversation} %>
-      <% end %>
+  <% if !@tweets.stream.empty? %>
+    <% @tweets.stream.each do |tweet_or_conversation| %>
+      <%= render(tweet_or_conversation) %>
     <% end %>
   <% else %>
     <li>No tweets since last time you checked.</li>
