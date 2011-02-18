@@ -1,5 +1,5 @@
 <li class="conversation">
-  <h2>Conversation</h2>
+  <h2><%= conversation.participants.join(", ") %> had a conversation about <%= conversation.topic %></h2>
   <ul>
     <%= render :partial => "tweets/tweet",
                :collection => conversation.tweets %>
