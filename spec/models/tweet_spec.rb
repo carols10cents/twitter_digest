@@ -140,5 +140,88 @@ describe Tweet do
           Conversation.new(@tweet4, @tweet3, @tweet2, @tweet1)])
       end
     end
+
+    context "replies to user, not status" do
+      before(:each) do
+        @tweet6 = Tweet.new(Hashie::Mash.new({
+                    :id                      => 6,
+                    :user                    => Hashie::Mash.new({
+                                                  :id          => 12,
+                                                  :screen_name => "testuser12"
+                                                }),
+                    :in_reply_to_screen_name => "testuser11",
+                    :in_reply_to_status_id   => 5,
+                    :created_at              => "Sun Feb 13 18:05:00 +0000 2011"
+                  }))
+        @tweet5 = Tweet.new(Hashie::Mash.new({
+                    :id                      => 5,
+                    :user                    => Hashie::Mash.new({
+                                                  :id          => 11,
+                                                  :screen_name => "testuser11"
+                                                }),
+                    :in_reply_to_screen_name => nil,
+                    :in_reply_to_status_id   => nil,
+                    :created_at              => "Sun Feb 13 18:04:00 +0000 2011"
+                  }))
+        @tweet4 = Tweet.new(Hashie::Mash.new({
+                    :id                      => 4,
+                    :user                    => Hashie::Mash.new({
+                                                  :id          => 11,
+                                                  :screen_name => "testuser11"
+                                                }),
+                    :in_reply_to_screen_name => "testuser12",
+                    :in_reply_to_status_id   => nil,
+                    :created_at              => "Sun Feb 13 18:03:00 +0000 2011"
+                  }))
+        @tweet3 = Tweet.new(Hashie::Mash.new({
+                    :id                      => 3,
+                    :user                    => Hashie::Mash.new({
+                                                  :id          => 12,
+                                                  :screen_name => "testuser12"
+                                                }),
+                    :in_reply_to_screen_name => "testuser11",
+                    :in_reply_to_status_id   => 2,
+                    :created_at              => "Sun Feb 13 18:02:00 +0000 2011"
+                  }))
+        @tweet2 = Tweet.new(Hashie::Mash.new({
+                    :id                      => 2,
+                    :user                    => Hashie::Mash.new({
+                                                  :id          => 11,
+                                                  :screen_name => "testuser11"
+                                                }),
+                    :in_reply_to_screen_name => nil,
+                    :in_reply_to_status_id   => nil,
+                    :created_at              => "Sun Feb 13 18:01:00 +0000 2011"
+                  }))
+        @tweet1 = Tweet.new(Hashie::Mash.new({
+                    :id                      => 1,
+                    :user                    => Hashie::Mash.new({
+                                                  :id => 10,
+                                                  :screen_name => "testuser10"
+                                                }),
+                    :in_reply_to_screen_name => "testuser11",
+                    :in_reply_to_status_id   => nil,
+                    :created_at              => "Sun Feb 13 18:00:00 +0000 2011"
+                  }))
+      end
+
+      it "leaves the tweet alone if no conversation with these 2 users exists" do
+        Tweet.digest([@tweet3, @tweet2, @tweet1]).stream.should eql([
+          Conversation.new(@tweet3, @tweet2),
+          @tweet1
+        ])
+      end
+
+      it "adds the tweet to an existing conversation with these 2 users" do
+        Tweet.digest([@tweet4, @tweet3, @tweet2]).stream.should eql([
+          Conversation.new(@tweet4, @tweet3, @tweet2)
+        ])
+      end
+
+      it "creates one big conversation if there are >1 conversations with these 2 users" do
+        Tweet.digest([@tweet6, @tweet5, @tweet4, @tweet3, @tweet2])
+          .stream.should eql([Conversation.new(@tweet6, @tweet5, @tweet4, @tweet3, @tweet2)])
+      end
+    end
   end
 end

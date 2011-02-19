@@ -13,12 +13,11 @@ class Conversation
   end
 
   def tweets
-    @tweets
+    @tweets.sort_by{|t| t.created_at}.reverse
   end
 
   def add_tweet(tweet)
     @tweets << tweet
-    @tweets.sort_by!{|t| t.created_at}.reverse!
   end
 
   def created_at
