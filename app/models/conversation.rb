@@ -1,3 +1,5 @@
+require 'engtagger'
+
 class Conversation
   include ActiveModel::Validations
   include ActiveModel::Conversion
@@ -24,17 +26,23 @@ class Conversation
   end
 
   def participants
-    @tweets.collect{|t| t.user.screen_name}.uniq
+    @tweets.collect{|t| "@" + t.user.screen_name}.uniq
   end
 
-  def topic
-    frequencies = Hash.new(0)
-    @tweets.each do |tweet|
-      tweet.text.split(" ").each do |word|
-        frequencies[word] += 1 unless word.start_with?("@")
-      end
+  def topics
+    all_text = @tweets.collect{|t| t.text}.join(" ")
+                 .gsub(/#{participants.join("|")}/, "")
+    all_words = all_text.split(" ")
+
+    hashtags = all_words.select{|x| x.starts_with?("#")}
+    if !hashtags.empty?
+      hashtags
+    else
+      tagger = EngTagger.new
+      tagged_text = tagger.add_tags(all_text)
+      noun_phrases = tagger.get_noun_phrases(tagged_text)
+      [noun_phrases.max_by{|p| p[1]}[0]]
     end
-    return frequencies.max_by{|f| f[1]}[0]
   end
 
   def include?(tweet)

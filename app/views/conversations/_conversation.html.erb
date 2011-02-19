@@ -1,5 +1,5 @@
 <li class="conversation">
-  <h2><%= conversation.participants.join(", ") %> had a conversation about <%= conversation.topic %></h2>
+  <h2><%= and_list(conversation.participants) %> had a conversation about <%= and_list(conversation.topics) %></h2>
   <ul>
     <%= render :partial => "tweets/tweet",
                :collection => conversation.tweets %>
