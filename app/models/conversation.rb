@@ -25,7 +25,7 @@ class Conversation
   end
 
   def participants
-    @tweets.collect{|t| "@" + t.user.screen_name}.uniq
+    @tweets.collect{|t| t.user.screen_name}.uniq
   end
 
   def topics
