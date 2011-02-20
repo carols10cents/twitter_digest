@@ -1,7 +1,7 @@
 GEM
   remote: http://rubygems.org/
   specs:
-    ZenTest (4.4.2)
+    ZenTest (4.5.0)
     abstract (1.0.0)
     actionmailer (3.0.3)
       actionpack (= 3.0.3)
@@ -43,8 +43,8 @@ GEM
       rack-test (>= 0.5.4)
       selenium-webdriver (>= 0.0.27)
       xpath (~> 0.1.3)
-    celerity (0.8.7)
-    childprocess (0.1.6)
+    celerity (0.8.8)
+    childprocess (0.1.7)
       ffi (~> 0.6.3)
     culerity (0.2.15)
     diff-lcs (1.1.2)
@@ -53,7 +53,7 @@ GEM
       hpricot
     erubis (2.6.6)
       abstract (>= 1.0.0)
-    faraday (0.5.5)
+    faraday (0.5.6)
       addressable (~> 2.2.4)
       multipart-post (~> 1.1.0)
       rack (>= 1.1.0, < 2)
@@ -62,8 +62,9 @@ GEM
     ffi (0.6.3-x86-mingw32)
       rake (>= 0.8.7)
     hashie (1.0.0)
-    hoe (2.9.1)
+    hoe (2.1.0)
       rake (>= 0.8.7)
+      rubyforge (>= 1.0.3)
     hpricot (0.8.3)
     i18n (0.5.0)
     json_pure (1.5.1)
@@ -154,9 +155,11 @@ GEM
     ruby-openid (2.1.8)
     ruby-openid-apps-discovery (1.2.0)
       ruby-openid (>= 2.1.7)
+    rubyforge (2.0.4)
+      json_pure (>= 1.1.7)
     rubyntlm (0.1.1)
     rubyzip (0.9.4)
-    selenium-webdriver (0.1.2)
+    selenium-webdriver (0.1.3)
       childprocess (~> 0.1.5)
       ffi (~> 0.6.3)
       json_pure
@@ -184,6 +187,7 @@ DEPENDENCIES
   autotest
   capybara (~> 0.4.1)
   engtagger
+  hoe (~> 2.1.0)
   omniauth (~> 0.1.6)
   rails (= 3.0.3)
   rspec-rails (~> 2.5.0)
