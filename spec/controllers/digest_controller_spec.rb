@@ -18,7 +18,8 @@ describe DigestController do
     describe "GET 'index'" do
       it "asks twitter for the most recent 200 tweets" do
         @test_client.should_receive(:home_timeline)
-                    .with(:count => 200)
+                    .with(:count            => 200,
+                          :include_entities => true)
                     .and_return([@test_tweet])
         Tweet.stub(:digest).and_return([@test_tweet])
         get :index
@@ -42,8 +43,9 @@ describe DigestController do
     
     it "requests only tweets since last time" do
       @test_client.should_receive(:home_timeline)
-                  .with(:since_id => 8000,
-                        :count    => 200)
+                  .with(:since_id         => 8000,
+                        :count            => 200,
+                        :include_entities => true)
                   .and_return([@test_tweet])
       Tweet.stub(:digest).and_return([@test_tweet])
       get :index

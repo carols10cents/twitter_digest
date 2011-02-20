@@ -3,7 +3,7 @@ class Tweet
   include ActiveModel::Conversion
   extend ActiveModel::Naming
 
-  attr_accessor :id, :user, :created_at, :text,
+  attr_accessor :id, :user, :created_at, :text, :entities,
                 :in_reply_to_status_id, :in_reply_to_screen_name
 
   def initialize(attributes = {})

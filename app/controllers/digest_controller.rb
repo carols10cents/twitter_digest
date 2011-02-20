@@ -5,10 +5,12 @@ class DigestController < ApplicationController
     @last_tweet_seen = params[:since_id] || current_user.last_tweet_seen
 
     if @last_tweet_seen
-      @tweets_hash = client.home_timeline(:since_id => @last_tweet_seen,
-                                           :count    => 200)
+      @tweets_hash = client.home_timeline(:since_id         => @last_tweet_seen,
+                                          :count            => 200,
+                                          :include_entities => true)
     else
-      @tweets_hash = client.home_timeline(:count => 200)
+      @tweets_hash = client.home_timeline(:count            => 200,
+                                          :include_entities => true)
       #TODO: flash notice that since this is 1st time, last 200 are shown, next time will be since this time
     end
 
