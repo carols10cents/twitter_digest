@@ -5,6 +5,8 @@ class Conversation
   include ActiveModel::Conversion
   extend ActiveModel::Naming
 
+  attr_accessor :topics
+
   def initialize(*args)
     @tweets = []
     args.each do |a|
@@ -21,7 +23,7 @@ class Conversation
   end
 
   def created_at
-    @tweets.first.created_at
+    tweets.first.created_at
   end
 
   def participants
@@ -29,19 +31,7 @@ class Conversation
   end
 
   def topics
-    all_text = @tweets.collect{|t| t.text}.join(" ")
-                 .gsub(/#{participants.join("|")}/, "")
-    all_words = all_text.split(" ")
-
-    hashtags = all_words.select{|x| x.starts_with?("#")}
-    if !hashtags.empty?
-      hashtags
-    else
-      tagger = EngTagger.new
-      tagged_text = tagger.add_tags(all_text)
-      noun_phrases = tagger.get_noun_phrases(tagged_text)
-      [noun_phrases.max_by{|p| p[1]}[0]]
-    end
+    @topics ||= generate_topics
   end
 
   def include?(tweet)
@@ -59,4 +49,20 @@ class Conversation
     false
   end
 
+  private
+  def generate_topics
+    all_text = @tweets.collect{|t| t.text}.join(" ")
+                 .gsub(/#{participants.join("|")}/, "")
+    all_words = all_text.split(" ")
+
+    hashtags = all_words.select{|x| x.starts_with?("#")}
+    if !hashtags.empty?
+      hashtags
+    else
+      tagger = EngTagger.new
+      tagged_text = tagger.add_tags(all_text)
+      noun_phrases = tagger.get_noun_phrases(tagged_text)
+      [noun_phrases.max_by{|p| p[1]}[0]]
+    end
+  end
 end

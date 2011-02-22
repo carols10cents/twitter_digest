@@ -24,3 +24,6 @@ h1.logo {
   background-color: #D9FFA9;
   padding: 10px;
 }
+.conversation_topics {
+  font-weight: bold;
+}
