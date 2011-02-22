@@ -1,3 +1,5 @@
+require_relative "../../lib/digestion_logic.rb"
+
 class DigestController < ApplicationController
   before_filter :login_required
 
@@ -18,7 +20,7 @@ class DigestController < ApplicationController
     @tweets_hash.each do |tweet_hash|
       @total_tweets << Tweet.new(tweet_hash)
     end
-    @tweets = Tweet.digest(@total_tweets)
+    @tweets = TwitterDigest::DigestionLogic.digest(@total_tweets)
 
     current_user.update_attributes!(
       :last_tweet_seen => @total_tweets[0].id
