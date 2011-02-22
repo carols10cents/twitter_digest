@@ -7,13 +7,17 @@ X * Show tweets from your timeline
 X * Store time of visit/time of last tweet seen per user model
 X * On next visit, show tweets since last visit
 X * Conversation identification
-X * Checkpoint 1
+==== Checkpoint 1
 X * Refactor tweet/conversations into tableless models
-X * Summarize conversation-- summarize gem was looking like a rabbit hole getting glib and libxml2 working on windows and heroku, so I'm going with hashtag then most frequent noun phrase according to the POS tagged text from EngTagger 
+X * Summarize conversation-- summarize gem was looking like a rabbit hole getting glib and libxml2 working on windows and heroku, so I'm going with hashtag then most frequent noun phrase according to the POS tagged text from EngTagger
 X * Conversation header text - users and topic
-* Link dereferencing and collapsing
-* Checkpoint 2?
+X * Link dereferencing and collapsing
+X * RTs with added text -- collapse into conversation as replies
+==== Checkpoint 2
+* Non-native RTs/multiple independent RTs of same text -- collapse
 * Get 800 tweets instead of 200 by getting multiple pages of tweets
+* Performance - profile #digest and see if improvements can be made
 * Conversation collapsing - jquery
 * Make display more twitter-like: pictures, <hr>s, etc
 * Change to Reader's twigest?
+==== Checkpoint 3

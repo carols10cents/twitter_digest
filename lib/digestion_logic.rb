@@ -7,6 +7,7 @@ module TwitterDigest
 
       group_direct_conversations(digested, tweets)
       group_replies_to_users_with_conversations(digested, tweets)
+      group_retweet_replies(digested, tweets)
       group_link_discussions(digested, tweets)
 
       digested
@@ -16,6 +17,7 @@ module TwitterDigest
     def group_direct_conversations(digested, tweets)
       tweets.each do |tweet|
         # This tweet may have been pulled into a conversation already.
+        # If it has, don't try to add it to a conversation again.
         if !digested.include?(tweet)
           if tweet.in_reply_to_status_id
             success = attempt_to_digest_into_conversation(
@@ -69,11 +71,11 @@ module TwitterDigest
 
     def group_replies_to_users_with_conversations(digested, tweets)
       # If tweets are already in conversations, we are not considering them here.
-      reply_to_user_tweets = digested.stream.select{|t|
+      reply_to_user_tweets = digested.stream.select do |t|
                                t.respond_to?(:in_reply_to_screen_name) &&
                                  t.in_reply_to_screen_name &&
                                    !t.in_reply_to_status_id
-                             }
+                             end
       reply_to_user_tweets.each do |tweet|
         user_name = tweet.user.screen_name
         reply_user_name = tweet.in_reply_to_screen_name
@@ -92,6 +94,38 @@ module TwitterDigest
             end
           end
           digested << consolidated
+        end
+      end
+    end
+
+    def group_retweet_replies(digested, tweets)
+      # If tweets are already in conversations, we are not considering
+      # them as candidates for collapsing, but we will look in existing
+      # conversations for the tweet being replied to.
+      tweets_containing_rt = digested.stream.select do |t|
+                               t.respond_to?(:text) && t.text &&
+                                 t.text.match(/ rt /i)
+                             end
+      tweets_containing_rt.each do |tweet|
+        retweeted_match = tweet.text.match(/ rt @[^:]*: (.*)$/i)
+        if retweeted_match
+          retweeted_text = retweeted_match[1]
+          existing_retweeted = tweets.find do |t|
+                                 t.text &&
+                                   t.text.start_with?(retweeted_text)
+                               end
+          if existing_retweeted
+            existing_conversation =
+              digested.find_conversation_by_tweet(existing_retweeted)
+            if existing_conversation
+              digested.delete(tweet)
+              existing_conversation.add_tweet(tweet)
+            else
+              digested.delete(tweet)
+              digested.delete(existing_retweeted)
+              digested << Conversation.new(tweet, existing_retweeted)
+            end
+          end
         end
       end
     end

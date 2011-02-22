@@ -168,6 +168,53 @@ describe "TwitterDigest::DigestionLogic#digest" do
     end
   end
 
+  context "retweet replies" do
+    before(:each) do
+      @tweet3 = Tweet.new(Hashie::Mash.new({
+                  :id                    => 3,
+                  :in_reply_to_status_id => 1,
+                  :text                  => "Why didn't you come get me then?",
+                  :created_at            => "Sun Feb 13 18:02:00 +0000 2011"
+                }))
+
+      @tweet2 = Tweet.new(Hashie::Mash.new({
+                  :id                      => 2,
+                  :user                    => Hashie::Mash.new({
+                                                :id          => 11,
+                                                :screen_name => "testuser11"
+                                              }),
+                  :in_reply_to_screen_name => nil,
+                  :in_reply_to_status_id   => nil,
+                  :text                    => "That's because you have skis. RT @testuser10: No problems getting to work today!",
+                  :created_at              => "Sun Feb 13 18:01:00 +0000 2011"
+                }))
+
+      @tweet1 = Tweet.new(Hashie::Mash.new({
+                  :id                      => 1,
+                  :user                    => Hashie::Mash.new({
+                                                :id => 10,
+                                                :screen_name => "testuser10"
+                                              }),
+                  :in_reply_to_screen_name => nil,
+                  :in_reply_to_status_id   => nil,
+                  :text                    => "No problems getting to work today!",
+                  :created_at              => "Sun Feb 13 18:00:00 +0000 2011"
+                }))
+    end
+
+    it "groups retweet replies into a new conversation" do
+      TwitterDigest::DigestionLogic
+        .digest([@tweet2, @tweet1]).stream
+        .should eql([Conversation.new(@tweet2, @tweet1)])
+    end
+
+    it "groups retweet replies into existing conversations" do
+      TwitterDigest::DigestionLogic
+        .digest([@tweet3, @tweet2, @tweet1]).stream
+        .should eql([Conversation.new(@tweet3, @tweet2, @tweet1)])
+    end
+  end
+
   context "multiple tweets discussing the same link" do
     before(:each) do
       @tweet2 = Tweet.new(Hashie::Mash.new({
