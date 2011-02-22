@@ -7,6 +7,7 @@ module TwitterDigest
 
       group_direct_conversations(digested, tweets)
       group_replies_to_users_with_conversations(digested, tweets)
+      group_link_discussions(digested, tweets)
 
       digested
     end
@@ -92,6 +93,30 @@ module TwitterDigest
           end
           digested << consolidated
         end
+      end
+    end
+
+    def group_link_discussions(digested, tweets)
+      # If tweets are already in conversations, we are not considering them here.
+
+      tweets_by_urls_mentioned = digested.stream.group_by do |tweet|
+        if tweet.respond_to?(:entities) &&
+             tweet.entities &&
+               !tweet.entities.urls.empty?
+          # TODO: If a tweet mentions multiple URLs,
+          # only the first will be considered...
+          tweet.entities.urls.first.expanded_url
+        end
+      end
+
+      tweets_by_urls_mentioned.select{|k, v| k && v.size > 1}.each do |key, value|
+        consolidated = Conversation.new
+        value.each do |tweet|
+          digested.delete(tweet)
+          consolidated.add_tweet(tweet)
+        end
+        consolidated.topics = [key]
+        digested << consolidated
       end
     end
   end

@@ -167,4 +167,56 @@ describe "TwitterDigest::DigestionLogic#digest" do
         .stream.should eql([Conversation.new(@tweet6, @tweet5, @tweet4, @tweet3, @tweet2)])
     end
   end
+
+  context "multiple tweets discussing the same link" do
+    before(:each) do
+      @tweet2 = Tweet.new(Hashie::Mash.new({
+                  :id                      => 2,
+                  :user                    => Hashie::Mash.new({
+                                                :id          => 11,
+                                                :screen_name => "testuser11"
+                                              }),
+                  :entities                => Hashie::Mash.new({
+                                                :urls => [
+                                                  :url          => "http://t.co/1",
+                                                  :display_url  => "t.co/1",
+                                                  :expanded_url =>
+                                                    "http://nytimes.com"
+                                                ]
+                                              }),
+                  :in_reply_to_screen_name => nil,
+                  :in_reply_to_status_id   => nil,
+                  :created_at              => "Sun Feb 13 18:01:00 +0000 2011"
+                }))
+
+      @tweet1 = Tweet.new(Hashie::Mash.new({
+                  :id                      => 1,
+                  :user                    => Hashie::Mash.new({
+                                                :id => 10,
+                                                :screen_name => "testuser10"
+                                              }),
+                  :entities                => Hashie::Mash.new({
+                                                :urls => [
+                                                  :url          => "http://t.co/2",
+                                                  :display_url  => "t.co/2",
+                                                  :expanded_url =>
+                                                    "http://nytimes.com"
+                                                ]
+                                              }),
+                  :in_reply_to_screen_name => nil,
+                  :in_reply_to_status_id   => nil,
+                  :created_at              => "Sun Feb 13 18:00:00 +0000 2011"
+                }))
+      @result = TwitterDigest::DigestionLogic
+        .digest([@tweet2, @tweet1]).stream
+    end
+
+    it "groups into a conversation tweets with the same display_url" do
+      @result.should eql([Conversation.new(@tweet2, @tweet1)])
+    end
+
+    it "should have the expanded url as the topic of the conversation" do
+      @result.first.topics.should eql(["http://nytimes.com"])
+    end
+  end
 end
