@@ -5,7 +5,7 @@ class Conversation
   include ActiveModel::Conversion
   extend ActiveModel::Naming
 
-  attr_accessor :topics
+  attr_accessor :topics, :type
 
   def initialize(*args)
     @tweets = []

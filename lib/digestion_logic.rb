@@ -116,6 +116,7 @@ module TwitterDigest
           consolidated.add_tweet(tweet)
         end
         consolidated.topics = [key]
+        consolidated.type = "link"
         digested << consolidated
       end
     end

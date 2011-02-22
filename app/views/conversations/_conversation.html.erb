@@ -1,4 +1,4 @@
-<li class="conversation">
+<li class="conversation<%= " #{conversation.type}" if conversation.type %>">
   <h2><%= and_list(conversation.participants) %> had a conversation about <span class="conversation_topics"><%= and_list(conversation.topics) %></span></h2>
   <ul>
     <%= render :partial => "tweets/tweet",

@@ -218,5 +218,9 @@ describe "TwitterDigest::DigestionLogic#digest" do
     it "should have the expanded url as the topic of the conversation" do
       @result.first.topics.should eql(["http://nytimes.com"])
     end
+
+    it "should have type link so we can display it differently" do
+      @result.first.type.should eql("link")
+    end
   end
 end

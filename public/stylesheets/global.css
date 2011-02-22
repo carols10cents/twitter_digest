@@ -27,3 +27,6 @@ h1.logo {
 .conversation_topics {
   font-weight: bold;
 }
+.tweets .link {
+  background-color: #ADD8C7;
+}
