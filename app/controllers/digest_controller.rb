@@ -1,4 +1,5 @@
 require_relative "../../lib/digestion_logic.rb"
+require_relative "../../lib/twitter_api.rb"
 
 class DigestController < ApplicationController
   before_filter :login_required
@@ -6,20 +7,12 @@ class DigestController < ApplicationController
   def index
     @last_tweet_seen = params[:since_id] || current_user.last_tweet_seen
 
-    if @last_tweet_seen
-      @tweets_from_api = client.home_timeline(
-        :since_id         => @last_tweet_seen,
-        :count            => 200,
-        :include_entities => true
-      )
-    else
-      @tweets_from_api = client.home_timeline(
-        :count            => 200,
-        :include_entities => true
-      )
-      # TODO: flash notice that since this is 1st time,
-      # last 200 are shown, next time will be since this time
-    end
+    @tweets_from_api = TwitterDigest::TwitterAPI.request_home_timeline(
+                         :client          => client,
+                         :last_tweet_seen => @last_tweet_seen
+                       )
+    # TODO: flash notice that if this is user's 1st time,
+    # last 200 are shown, next time will be since this time
 
     @unabridged_tweets = @tweets_from_api.map{|t| Tweet.new(t)}
     @digested_tweets   = TwitterDigest::DigestionLogic.digest(
