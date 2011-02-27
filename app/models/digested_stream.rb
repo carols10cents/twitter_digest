@@ -28,7 +28,10 @@ class DigestedStream
   end
 
   def include?(tweet)
-    @stream.any?{|i| (i.respond_to?(:include?) && i.include?(tweet)) || i.eql?(tweet)}
+    @stream.any? do |i|
+      (i.respond_to?(:include?) && i.include?(tweet)) ||
+        i.eql?(tweet)
+    end
   end
 
   def find_conversation_by_tweet(tweet)

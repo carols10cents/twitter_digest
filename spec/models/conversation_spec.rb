@@ -2,45 +2,59 @@ require 'spec_helper'
 
 describe Conversation do
   before(:each) do
-    @tweet5 = Tweet.new(Hashie::Mash.new({:id => 5,
-                        :in_reply_to_status_id => 2,
-                        :created_at => "Sun Feb 13 18:02:00 +0000 2011",
-                        :text => "@testuser2 @testuser2 @testuser2 Winter makes us appreciate spring",
-                        :user => Hashie::Mash.new({
-                          :screen_name => "testuser1"})
-                        }))
-    @tweet4 = Tweet.new(Hashie::Mash.new({:id => 4,
-                        :in_reply_to_status_id => 2,
-                        :created_at => "Sun Feb 13 18:03:00 +0000 2011",
-                        :text => "@testuser2 Yeah, so much better than last week. I can sit outside! #happiness",
-                        :user => Hashie::Mash.new({
-                          :screen_name => "testuser3"})
-                        }))
-    @tweet3 = Tweet.new(Hashie::Mash.new({:id => 3,
-                        :in_reply_to_status_id => 2,
-                        :created_at => "Sun Feb 13 18:02:00 +0000 2011",
-                        :text => "@testuser2 I've missed the sun so much!",
-                        :user => Hashie::Mash.new({
-                          :screen_name => "testuser1"})
-                        }))
-    @tweet2 = Tweet.new(Hashie::Mash.new({:id => 2,
-                        :in_reply_to_status_id => nil,
-                        :created_at => "Sun Feb 13 18:01:00 +0000 2011",
-                        :text => "This weather is so nice. Here comes the sun!",
-                        :user => Hashie::Mash.new({
-                          :screen_name => "testuser2"})
-                        }))
-    @tweet1 = Tweet.new(Hashie::Mash.new({:id => 1,
-                        :in_reply_to_status_id => nil,
-                        :created_at => "Sun Feb 13 18:00:00 +0000 2011",
-                        :text => "Watch out, they're predicting snow for this weekend #weather",
-                        :user => Hashie::Mash.new({
-                          :screen_name => "testuser1"})
-                        }))
+    @tweet5 = Tweet.new(Hashie::Mash.new({
+                :id                    => 5,
+                :in_reply_to_status_id => 2,
+                :created_at            => "Sun Feb 13 18:02:00 +0000 2011",
+                :text                  => "@testuser2 @testuser2 @testuser2
+                Winter makes us appreciate spring",
+                :user                  => Hashie::Mash.new({
+                                            :screen_name => "testuser1"
+                                          })
+                }))
+    @tweet4 = Tweet.new(Hashie::Mash.new({
+                :id                    => 4,
+                :in_reply_to_status_id => 2,
+                :created_at            => "Sun Feb 13 18:03:00 +0000 2011",
+                :text                  => "@testuser2 Yeah, so much better than
+                last week. I can sit outside! #happiness",
+                :user                  => Hashie::Mash.new({
+                                            :screen_name => "testuser3"
+                                          })
+                }))
+    @tweet3 = Tweet.new(Hashie::Mash.new({
+                :id                    => 3,
+                :in_reply_to_status_id => 2,
+                :created_at            => "Sun Feb 13 18:02:00 +0000 2011",
+                :text                  => "@testuser2 I've missed the
+                sun so much!",
+                :user                  => Hashie::Mash.new({
+                                            :screen_name => "testuser1"
+                                          })
+                }))
+    @tweet2 = Tweet.new(Hashie::Mash.new({
+                :id                    => 2,
+                :in_reply_to_status_id => nil,
+                :created_at            => "Sun Feb 13 18:01:00 +0000 2011",
+                :text                  => "This weather is so nice. Here
+                comes the sun!",
+                :user                  => Hashie::Mash.new({
+                                            :screen_name => "testuser2"
+                                          })
+                }))
+    @tweet1 = Tweet.new(Hashie::Mash.new({
+                :id                    => 1,
+                :in_reply_to_status_id => nil,
+                :created_at            => "Sun Feb 13 18:00:00 +0000 2011",
+                :text                  => "Watch out, they're predicting
+                snow for this weekend #weather",
+                :user                  => Hashie::Mash.new({
+                                            :screen_name => "testuser1"
+                                          })
+                }))
   end
 
   describe "#new" do
-
     it "can be created without any tweets" do
       c = Conversation.new
       c.should be_valid

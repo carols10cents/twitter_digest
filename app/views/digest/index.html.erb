@@ -1,5 +1,6 @@
 <div class="stats">
-  Viewing <%= @num_unabridged_tweets %> tweets since you last checked; <%= @num_in_conversations %> are in conversations.
+  Viewing <%= @num_unabridged_tweets %> tweets since you last checked;
+  <%= @num_in_conversations %> are in conversations.
 </div>
 <ul class='tweets'>
   <% if !@digested_tweets.stream.empty? %>

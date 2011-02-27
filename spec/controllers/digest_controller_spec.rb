@@ -3,7 +3,7 @@ require 'spec_helper'
 describe DigestController do
   before(:each) do
     @test_client = double("client")
-    @test_tweet = double("tweet", :id => 9000).as_null_object
+    @test_tweet  = double("tweet", :id => 9000).as_null_object
     controller.stub(:login_required)
     Twitter::Client.stub(:new).and_return(@test_client)
     Tweet.stub(:new).and_return(@test_tweet)
@@ -29,7 +29,8 @@ describe DigestController do
         @test_client.stub(:home_timeline)
                     .and_return([@test_tweet])
         Tweet.stub(:digest).and_return([@test_tweet])
-        @test_user.should_receive(:update_attributes!).with(:last_tweet_seen => 9000)
+        @test_user.should_receive(:update_attributes!)
+                  .with(:last_tweet_seen => 9000)
         get :index
       end
     end

@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
       @current_user ||= User.find(session[:user_id]) if session[:user_id]
     rescue ActiveRecord::RecordNotFound
       session[:user_id] = nil
-      @current_user = nil
+      @current_user     = nil
       access_denied
     end
   end
@@ -37,9 +37,9 @@ class ApplicationController < ActionController::Base
 
   def client
     Twitter.configure do |config|
-      config.consumer_key = ENV['TWOAUTH_KEY']
-      config.consumer_secret = ENV['TWOAUTH_SECRET']
-      config.oauth_token = current_user.token
+      config.consumer_key       = ENV['TWOAUTH_KEY']
+      config.consumer_secret    = ENV['TWOAUTH_SECRET']
+      config.oauth_token        = current_user.token
       config.oauth_token_secret = current_user.secret
     end
     @client ||= Twitter::Client.new

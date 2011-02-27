@@ -40,7 +40,9 @@ module TwitterDigest
       existing_reply = tweets.find{|t| t.id == reply_to}
 
       if existing_reply
-        existing_conversation = digested.find_conversation_by_tweet(existing_reply)
+        existing_conversation = digested.find_conversation_by_tweet(
+                                  existing_reply
+                                )
         if existing_conversation
           existing_conversation.add_tweet(tweet)
           return true
@@ -70,7 +72,7 @@ module TwitterDigest
     end
 
     def group_replies_to_users_with_conversations(digested, tweets)
-      # If tweets are already in conversations, we are not considering them here.
+      # If tweets are already in conversations, don't consider here.
       reply_to_user_tweets = digested.stream.select do |t|
                                t.respond_to?(:in_reply_to_screen_name) &&
                                  t.in_reply_to_screen_name &&
@@ -131,7 +133,7 @@ module TwitterDigest
     end
 
     def group_link_discussions(digested, tweets)
-      # If tweets are already in conversations, we are not considering them here.
+      # If tweets are already in conversations, don't consider here.
 
       tweets_by_urls_mentioned = digested.stream.group_by do |tweet|
         if tweet.respond_to?(:entities) &&
@@ -143,7 +145,10 @@ module TwitterDigest
         end
       end
 
-      tweets_by_urls_mentioned.select{|k, v| k && v.size > 1}.each do |key, value|
+      multiple_tweets_one_url = tweets_by_urls_mentioned.select do |k, v|
+                                  k && v.size > 1
+                                end
+      multiple_tweets_one_url.each do |key, value|
         consolidated = Conversation.new
         value.each do |tweet|
           digested.delete(tweet)

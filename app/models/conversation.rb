@@ -51,7 +51,7 @@ class Conversation
 
   private
   def generate_topics
-    all_text = @tweets.collect{|t| t.text}.join(" ")
+    all_text  = @tweets.collect{|t| t.text}.join(" ")
                  .gsub(/#{participants.join("|")}/, "")
     all_words = all_text.split(" ")
 
@@ -59,8 +59,8 @@ class Conversation
     if !hashtags.empty?
       hashtags
     else
-      tagger = EngTagger.new
-      tagged_text = tagger.add_tags(all_text)
+      tagger       = EngTagger.new
+      tagged_text  = tagger.add_tags(all_text)
       noun_phrases = tagger.get_noun_phrases(tagged_text)
       [noun_phrases.max_by{|p| p[1]}[0]]
     end
