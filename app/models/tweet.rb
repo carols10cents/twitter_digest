@@ -8,13 +8,16 @@ class Tweet
 
   def initialize(attributes = {})
     attributes.each do |name, value|
-      if name.eql?("in_reply_to_screen_name") && value
+      next unless respond_to?("#{name}=")
+
+      case name
+      when "in_reply_to_screen_name"
         value = "@" + value
-      end
-      if name.eql?("user")
+      when "user"
         value.screen_name = "@" + value.screen_name
-      end
-      send("#{name}=", value) if respond_to?("#{name}=")
+      end unless value.nil?
+
+      send("#{name}=", value)
     end
   end
 
