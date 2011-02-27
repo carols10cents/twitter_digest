@@ -60,11 +60,11 @@ describe DigestController do
         get :index
       end
       
-      it "should have a count for @num_total_tweets" do
+      it "should have a count for @num_unabridged_tweets" do
         @test_client.stub(:home_timeline).and_return([@test_tweet])
         Tweet.stub(:digest).and_return([@test_tweet])
         get :index
-        assigns[:num_total_tweets].should eql(1)
+        assigns[:num_unabridged_tweets].should eql(1)
       end
     end
     
@@ -76,11 +76,11 @@ describe DigestController do
         get :index
       end
       
-      it "should have a 0 count for @num_total_tweets" do
+      it "should have a 0 count for @num_unabridged_tweets" do
         @test_client.stub(:home_timeline).and_return([])
         Tweet.stub(:digest).and_return([])
         get :index
-        assigns[:num_total_tweets].should eql(0)
+        assigns[:num_unabridged_tweets].should eql(0)
       end
     end
   end
