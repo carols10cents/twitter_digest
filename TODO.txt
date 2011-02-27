@@ -14,10 +14,13 @@ X * Conversation header text - users and topic
 X * Link dereferencing and collapsing
 X * RTs with added text -- collapse into conversation as replies
 ==== Checkpoint 2
+X * Clean up code with suggestions from review group
+X * Get 800 tweets instead of 200 by getting multiple pages of tweets
+==== Checkpoint 3
+
+Future improvements include:
 * Non-native RTs/multiple independent RTs of same text -- collapse
-* Get 800 tweets instead of 200 by getting multiple pages of tweets
 * Performance - profile #digest and see if improvements can be made
 * Conversation collapsing - jquery
 * Make display more twitter-like: pictures, <hr>s, etc
 * Change to Reader's twigest?
-==== Checkpoint 3
