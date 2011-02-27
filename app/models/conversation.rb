@@ -51,8 +51,7 @@ class Conversation
 
   private
   def generate_topics
-    all_text  = @tweets.collect{|t| t.text}.join(" ")
-                 .gsub(/#{participants.join("|")}/, "")
+    all_text  = text_for(@tweets)
     all_words = all_text.split(" ")
 
     hashtags = all_words.select{|x| x.starts_with?("#")}
@@ -64,5 +63,10 @@ class Conversation
       noun_phrases = tagger.get_noun_phrases(tagged_text)
       [noun_phrases.max_by{|p| p[1]}[0]]
     end
+  end
+
+  def text_for(tweets)
+    tweets_joined = tweets.map(&:text).join(" ")
+    tweets_joined.gsub(/#{participants.join("|")}/, "")
   end
 end
