@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Provider:</b>
+  <%= @user.provider %>
+</p>
+
+<p>
+  <b>Uid:</b>
+  <%= @user.uid %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @user.name %>
+</p>
+
+<p>
+  <b>Timeline order:</b>
+  <%= @user.timeline_order %>
+</p>
+
+<p>
+  <b>Conversation order:</b>
+  <%= @user.conversation_order %>
+</p>
+
+
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %>

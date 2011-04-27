@@ -5,6 +5,7 @@ gem 'omniauth', "~> 0.1.6"
 gem 'twitter', "~> 1.1.2"
 gem 'hoe', "~> 2.1.0"
 gem 'engtagger'
+gem 'clnclarinet-enumerated_attribute', :path => "C:/Ruby/enumerated_attribute"
 
 group :development, :test do
   gem 'autotest'

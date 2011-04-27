@@ -4,6 +4,8 @@ class CreateUsers < ActiveRecord::Migration
       t.string :provider
       t.string :uid
       t.string :name
+      t.enum :timeline_order
+      t.enum :conversation_order
 
       t.timestamps
     end

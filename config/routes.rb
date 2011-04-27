@@ -1,4 +1,6 @@
 TwitterDigest::Application.routes.draw do
+  resources :users
+
   root :to                         => "digest#index"
 
   match "/auth/:provider/callback" => "sessions#create"

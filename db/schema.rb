@@ -10,18 +10,9 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110213191616) do
+ActiveRecord::Schema.define(:version => 20110308144807) do
 
-  create_table "users", :force => true do |t|
-    t.string   "provider"
-    t.string   "uid"
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "nickname"
-    t.string   "token"
-    t.string   "secret"
-    t.string   "last_tweet_seen"
-  end
+# Could not dump table "users" because of following StandardError
+#   Unknown type 'enum' for column 'timeline_order'
 
 end
