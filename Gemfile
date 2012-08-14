@@ -1,8 +1,11 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.0.3'
-gem 'omniauth', "~> 0.1.6"
-gem 'twitter', "~> 1.1.2"
+gem 'omniauth', "~> 1.1.0"
+gem "omniauth-twitter", "~> 0.0.12"
+
+gem "twitter", "~> 3.5.0"
+
 gem 'hoe', "~> 2.1.0"
 gem 'engtagger'
 
