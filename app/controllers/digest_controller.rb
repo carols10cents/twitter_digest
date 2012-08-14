@@ -14,7 +14,7 @@ class DigestController < ApplicationController
     # TODO: flash notice that if this is user's 1st time,
     # last 200 are shown, next time will be since this time
 
-    @unabridged_tweets = @tweets_from_api.map{|t| Tweet.new(t)}
+    @unabridged_tweets = @tweets_from_api.map{|t| Tweet.new(t.attrs)}
     @digested_tweets   = TwitterDigest::DigestionLogic.digest(
                            @unabridged_tweets
                          )

@@ -79,7 +79,7 @@ module TwitterDigest
                                    !t.in_reply_to_status_id
                              end
       reply_to_user_tweets.each do |tweet|
-        user_name = tweet.user.screen_name
+        user_name = tweet.user[:screen_name]
         reply_user_name = tweet.in_reply_to_screen_name
         conversations = digested.stream.select{|c|
                           c.respond_to?(:participants) &&
@@ -138,10 +138,10 @@ module TwitterDigest
       tweets_by_urls_mentioned = digested.stream.group_by do |tweet|
         if tweet.respond_to?(:entities) &&
              tweet.entities &&
-               !tweet.entities.urls.empty?
+               !tweet.entities[:urls].empty?
           # TODO: If a tweet mentions multiple URLs,
           # only the first will be considered...
-          tweet.entities.urls.first.expanded_url
+          tweet.entities[:urls].first[:expanded_url]
         end
       end
 
